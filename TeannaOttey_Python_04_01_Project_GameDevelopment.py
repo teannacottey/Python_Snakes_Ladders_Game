@@ -1,13 +1,12 @@
-#Snakes and Ladders game 
-
+#--------------------------------------------------------------------- Snakes and Ladders game ---------------------------------------------------------------------
 #Import python modules to use in game
 
 import random #allows code to create a dice to use in the game 
 import time #allows code to create a game timer 
 
 #--------------------------------------------------------------------------------------------------------------
-
 #Creating the game board - incl snakes and ladders landing and destination positions 
+
 """stored in dictionaries as each variable(snakes and ladders) contain mulptiple pair elements
 + reduces potentially lengthy code with e.g.'snake = 22 if position == 22: position -= 17' """
 
@@ -19,12 +18,11 @@ ladders = {4:25, 13:46, 42:63, 50:69, 62:81, 74:92} #ladder landing position sen
 #stored as a list of dictionaries to account for multiple elements with multiple levels 
 
 levels = [
-    {"name": "Easy", "max_attempts": 10}, 
+    {"name": "Easy", "max_attempts": 60}, 
     {"name": "Medium", "max_attempts": 40}, 
     {"name": "Hard", "max_attempts": 20}
 ]
 #--------------------------------------------------------------------------------------------------------------
-
 #Create game functions 
 
 #create a function that checks snakes/ladders position 
@@ -42,7 +40,7 @@ def check_square(position): #passes player position through function, variable d
 #create a function that gets user number input 
 def get_roll(): 
     while True: #create loop that prompts user input until valid
-        user_input = input("Roll the dice! 🎲 or enter a number (1-6).\n").strip() #prompts user to roll dice, enter number, or quit game
+        user_input = input("-- Roll the dice! 🎲 or enter a number (1-6). --\n").strip() #prompts user to roll dice, enter number, or quit game
         if user_input.lower() == 'q': #checks if user wants to quit the game 
             return None #no number to return 
         if user_input == "": #checks if users chose to roll the dice, i.e. pressed enter
@@ -53,19 +51,20 @@ def get_roll():
             roll = int(user_input) #convert user input to integer 
             if 1<= roll <= 6: #checks input is within dice range 
                 return roll 
-            print("| ⚠️ Invalid input - Please enter a number between 1 and 6. |\n") #sends error message if input out of range
+            print("⚠️ Invalid input - Please enter a number between 1 and 6.\n") #sends error message if input out of range
         except ValueError: #sends error message if input cannot be converted to an integer 
-            print("| ⚠️ Invalid input - Numbers only, please! (1-6). |\n")
+            print("⚠️ Invalid input - Numbers only, please! (1-6).\n")
 
 #--------------------------------------------------------------------------------------------------------------
 #Introduce game to user 
-print("🐍 Snakes and Ladders 🪜\n")                                          
+
+print("------------------------------------------------ 🐍 Snakes and Ladders 🪜 ------------------------------------------------\n")                                          
 
 #Give user game instructions 
-print("Complete all 3 levels to win the game! \n \nEach level has fewer attemps so 👀... try to avoid the snakes 🐍, if you can!\n")
+print("----------------- Complete all 3 levels to win the game! -----------------\n \n -------------- Each level has fewer attemps so 👀... try to avoid the snakes 🐍, if you can! --------------\n")
 
 #instructions to start the game 
-print("Ready to begin? Press enter on your keyboard to roll the dice 🎲 or type 'q' to exit the game.\n")
+print("-------- Ready to begin? 🤔 Press enter on your keyboard to roll the dice 🎲 or type 'q' to exit the game. --------\n")
 
 #present level details to user 
 #create levels loop that allows users to pass through each level upon completing the level prior, setting new conditions for each level
@@ -93,7 +92,7 @@ for level_num, level in enumerate(levels, start=1): #enumerate creates index num
         #get user input 
         roll = get_roll() #gets output from function 
         if roll is None: #no value, player chose to quit the game. if false, moves on to next body of code
-            print("| Goodbye 😢 Thanks for playing! |\n")
+            print("Goodbye 😢 Thanks for playing!\n")
             quit_game = True 
             break #exits game loop 
             
@@ -113,15 +112,11 @@ for level_num, level in enumerate(levels, start=1): #enumerate creates index num
         #display final position after each attempt 
         print(f" New Position: {position}\n")
 
-        if position >= 100: 
-            level_complete = True #level complete, exit while not level_complete loop
-            break #exits game loop 
-
         #attempt limit check 
         if attempts >= max_attempts: #checks if max attempts reached, ignores if false 
             time_taken = round(time.time() - timer_start, 1) #calculates total time taken to reach attempt limit 
             print(f"❌ Oh no! You have ran out of attempts | You reached position {position} in {time_taken}s.\n")
-            print(f"👾 Game Over | Failed to complete Level {level_num}: {level_name} | Try again!\n")
+            print(f"👾 Game Over | Failed to complete Level {level_num}: {level_name}\n")
             quit_game = True
             break #exits game loop when attempts exceeded     
         

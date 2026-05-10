@@ -141,6 +141,7 @@ for level_num, level in enumerate(levels, start=1): #enumerate creates index num
         #Set initial game state, inside for loop and while loop to reset on each level/ level attempt   
         position = 0 #board game starting position = off the board 
         attempts = 0 #user have yet to roll the dice/input a number 
+        levels_passed = 0
         timer_start = None #the timer hasn't started because the user has not rolled yet 
         quit_game = False #allows game to continue unless user quits or exceeds maximum attempts 
         failed_level = False #allows game to contunue unless user fails a level     
@@ -203,6 +204,7 @@ for level_num, level in enumerate(levels, start=1): #enumerate creates index num
     time_taken = round(time.time() - timer_start, 1)
     print(f"✅ Level {level_num} complete! You reached 100 in {attempts} attempts and {time_taken}s.\n")
 
+    game_stats["levels_passed"] += 1
     game_stats["total_attempts"] += attempts
     game_stats["total_time"] += time_taken 
     level_entry = {
